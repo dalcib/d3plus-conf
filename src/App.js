@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+//import d3plus from 'd3plus'
+import { Treemap as D3 } from 'd3plus-react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+/* const viz = new Treemap()
+console.log(viz.config(), TreemapComp.defaultProps)
+ */
+
+//console.log(d3plus.Plot().config())
+
+const sdata = [
+  { value: 100, name: 'alpha' },
+  { value: 70, name: 'beta' },
+  { value: 40, name: 'gamma' },
+  { value: 15, name: 'delta' },
+  { value: 5, name: 'epsilon' },
+  { value: 1, name: 'zeta' },
+]
+
+const config = {
+  data: sdata,
+  size: d => d.value,
+  groupBy: 'name',
+  //text: 'name',
+  //labels: { align: 'right', valign: 'top' },
+  //font: { family: 'Arial' },
+  title: 'Tree Map',
 }
 
-export default App;
+let viz = null
+
+function App() {
+  useEffect(() => {
+    console.log(viz)
+  })
+  return (
+    <div className="App">
+      <D3 config={config} ref={comp => (viz = comp)} />
+    </div>
+  )
+}
+
+export default App

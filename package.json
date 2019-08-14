@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3plus": "^1.9.8",
+    "d3plus-react": "^0.5.7",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.0"
+    "react-scripts": "3.1.0",
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
