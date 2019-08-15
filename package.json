@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "d3plus": "^1.9.8",
+    "d3plus": "^2.0.0-alpha.22",
     "d3plus-react": "^0.5.7",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

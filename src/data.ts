@@ -1,6 +1,6 @@
 //https://comtrade.un.org/api/get?max=50000&type=C&head=M&px=HS&freq=A&r=699&ps=2018%2C2017%2C2016%2C2015%2C2014&p=76&rg=1&cc=AG6&fmt=json
 
-var comtrade = require('./comtrade.json')
+const comtrade = require('./comtrade.json')
 
 type trade = {
   yr: number
@@ -18,21 +18,22 @@ type trade = {
   TradeValue: number
 }
 
-const hs = require('./classificationH0.json')
-const hsDesc: { [key: string]: string } = {}
-hs.results.forEach((code: any) => {
-  hsDesc[code.id] = code.text.substr(code.id.length + 3)
+/* const hs = require('./classificationH0.json')
+const hsDesc = {}
+hs.results.forEach(code => {
+  if (code.id.length <= 4) {
+    hsDesc[code.id] = code.text
+  }
 })
+fs.writeFileSync('hsDesc.json', JSON.stringify(hsDesc)) */
+
+const hsDesc = require('./hsDesc.json')
 
 var trade: trade[] = comtrade.dataset
   .map(({ yr, cmdCode, cmdDescE, qtCode, qtDesc, TradeQuantity, TradeValue, ...rest }: trade) => ({
     yr,
     cmdCode,
-    cmdDescE,
-    qtCode,
-    qtDesc,
-    TradeQuantity,
-    TradeValue,
+    value: TradeValue,
   }))
   .map(({ cmdCode, ...rest }: trade) => ({
     cmdCode2: cmdCode.substr(0, 2),
@@ -64,14 +65,16 @@ const agro4c: na = ['6401', '6402', '6403', '6404', '6405', '6406', '3201', '320
 const agro4d: na = ['5304', '5305', '5306', '5307', '5308', '5309', '5310', '5311']
 const agro4: na = [agro4a, agro4b, agro4c, agro4d].flat()
 
-const tradeAgri = trade.filter(
-  item =>
-    sps.includes(item.cmdCode2) ||
-    sps4.includes(item.cmdCode4) ||
-    sps6.includes(item.cmdCode6) ||
-    agro2.includes(item.cmdCode2) ||
-    agro4.includes(item.cmdCode4)
-)
+const tradeAgri = trade
+  .filter(
+    item =>
+      sps.includes(item.cmdCode2) ||
+      sps4.includes(item.cmdCode4) ||
+      sps6.includes(item.cmdCode6) ||
+      agro2.includes(item.cmdCode2) ||
+      agro4.includes(item.cmdCode4)
+  )
+  .map(({ cmdCode2, cmdCode4, cmdCode6, ...rest }) => ({ ...rest }))
 
 //console.log(Object.keys(trade[0]))
 console.log(tradeAgri)
@@ -79,3 +82,5 @@ console.log(tradeAgri)
 const fs = require('fs')
 
 fs.writeFileSync('tradeAgri.json', JSON.stringify(tradeAgri))
+
+export {}
