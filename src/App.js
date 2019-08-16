@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Treemap, StackedArea } from 'd3plus-react'
 import tradeAgri from './tradeAgri.json'
+import { json } from 'd3-fetch'
 
 const config = {
   data: tradeAgri,
@@ -18,6 +19,21 @@ const config = {
     text: d => d.text,
   },
 }
+
+function useFetch(url) {
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+  async function fetchUrl() {
+    const jsonData = await json(url)
+    setData(jsonData)
+    setLoading(false)
+  }
+  useEffect(() => {
+    fetchUrl()
+  }, [])
+  return [data, loading]
+}
+export { useFetch }
 
 //let viz = null
 

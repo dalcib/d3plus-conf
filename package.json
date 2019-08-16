@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3-fetch": "^1.1.2",
     "d3plus": "^2.0.0-alpha.22",
     "d3plus-react": "^0.5.7",
     "react": "^16.9.0",
