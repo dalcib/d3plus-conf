@@ -33,21 +33,23 @@ var trade: trade[] = comtrade.dataset
   .map(({ yr, cmdCode, cmdDescE, qtCode, qtDesc, TradeQuantity, TradeValue, ...rest }: trade) => ({
     yr,
     cmdCode,
+    cmdDescE,
     value: TradeValue,
   }))
-  .map(({ cmdCode, ...rest }: trade) => ({
+  .map(({ cmdCode, cmdDescE, ...rest }: trade) => ({
     cmdCode2: cmdCode.substr(0, 2),
     cmdCode4: cmdCode.substr(0, 4),
     cmdCode6: cmdCode,
+    cmdDescE,
     ...rest,
   }))
-  .map(({ cmdCode2, cmdCode4, cmdCode6, ...rest }: trade) => ({
+  .map(({ cmdCode2, cmdCode4, cmdCode6, cmdDescE, ...rest }: trade) => ({
     cmdCode2,
     cmdDesc2: hsDesc[cmdCode2],
     cmdCode4,
     cmdDesc4: hsDesc[cmdCode4],
     cmdCode6,
-    cmdDesc6: hsDesc[cmdCode6],
+    cmdDesc6: cmdCode6 + '- ' + cmdDescE,
     ...rest,
   }))
 

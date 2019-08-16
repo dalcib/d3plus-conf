@@ -9,7 +9,7 @@ const config = {
   title: 'Exports Brazil to India',
   time: 'yr',
   downloadButton: true,
-  downloadPosition: 'botton',
+  downloadPosition: 'top',
   dev: true,
   //color: 'cmdDesc2',
   legend: false,
@@ -50,7 +50,7 @@ function App() {
           ...config,
         }}
         ref={rviz}
-        forceUpdate={true}
+        forceUpdate={false}
       />
       <p onClick={() => setDepth(1)}>{year}</p>
       {/* <input type="number" min="0" max="2" value={depth} onChange={v => setDepth(v)} />
@@ -64,6 +64,9 @@ function App() {
           y: 'value',
           x: 'yr',
           legend: false,
+          depth: 0,
+          downloadButton: true,
+          downloadPosition: 'top',
         }}
       />
     </div>
