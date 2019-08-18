@@ -1334,10 +1334,30 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.3.tgz#7c6b0f8eaf16ae530795de2ad1b85d34bf2f5c58"
   integrity sha512-wp6IOGu1lxsfnrD+5mX6qwSwWuqsdkKKxTN4aQc4wByHAKZJf9/D4KXPQ1POUjEbnCP5LMggB0OEFNY9OTsMqg==
 
+"@types/prop-types@*":
+  version "15.7.1"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.1.tgz#f1a11e7babb0c3cad68100be381d1e064c68f1f6"
+  integrity sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+
+"@types/react-dom@^16.8.5":
+  version "16.8.5"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.5.tgz#3e3f4d99199391a7fb40aa3a155c8dd99b899cbd"
+  integrity sha512-idCEjROZ2cqh29+trmTmZhsBAUNQuYrF92JHKzZ5+aiFM1mlSk3bb23CK7HhYuOY75Apgap5y2jTyHzaM2AJGA==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^16.9.2":
+  version "16.9.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.2.tgz#6d1765431a1ad1877979013906731aae373de268"
+  integrity sha512-jYP2LWwlh+FTqGd9v7ynUKZzjj98T8x7Yclz479QdRhHfuW9yQ+0jjnD31eXSXutmBpppj5PYNLYLRfnZJvcfg==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -3185,6 +3205,11 @@ cssstyle@^1.1.1:
   dependencies:
     cssom "0.3.x"
 
+csstype@^2.2.0:
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.6.tgz#c34f8226a94bbb10c32cc0d714afdf942291fc41"
+  integrity sha512-RpFbQGUE74iyPgvr46U9t1xoQBM8T4BL8SxrN66Le2xYAPSaDJJKeztV3awugusb3g3G9iL8StmkBBXhcbbXhg==
+
 cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
@@ -3242,13 +3267,6 @@ d3-ease@1:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/d3-ease/-/d3-ease-1.0.5.tgz#8ce59276d81241b1b72042d6af2d40e76d936ffb"
   integrity sha512-Ct1O//ly5y5lFM9YTdu+ygq7LleSgSE4oj7vUt9tPLHUi8VCV7QoizGpdWRWAwCO9LdYzIrQDg97+hGVdsSGPQ==
-
-d3-fetch@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/d3-fetch/-/d3-fetch-1.1.2.tgz#957c8fbc6d4480599ba191b1b2518bf86b3e1be2"
-  integrity sha512-S2loaQCV/ZeyTyIF2oP8D1K9Z4QizUzW7cWeAOAS4U88qOt3Ucf6GsmgthuYSdyB2HyEm4CeGvkQxWsmInsIVA==
-  dependencies:
-    d3-dsv "1"
 
 d3-force@^1.2.1:
   version "1.2.1"
@@ -3520,9 +3538,9 @@ d3plus-network@^0.5.8:
     d3plus-viz "^0.12.36"
 
 d3plus-plot@^0.8.14:
-  version "0.8.21"
-  resolved "https://registry.yarnpkg.com/d3plus-plot/-/d3plus-plot-0.8.21.tgz#5489a96f22c6e442559b3487434a5319927ca82b"
-  integrity sha512-AzWfkJFJky8FLnR9d6pirvfKRfHeEFTa4kH+MOeCLWDUDcwrr1/tUYhyjJQQbS1Z11UthF/4VIh97o6BgVN09A==
+  version "0.8.22"
+  resolved "https://registry.yarnpkg.com/d3plus-plot/-/d3plus-plot-0.8.22.tgz#1f3f6d2c2a655192191ff81d5dbe8780f721511a"
+  integrity sha512-MYsFJQRR3bd9giY6G8PP05BrLDo6NJieKwAIAw8+RUBN7EV1bVcppmwvgFFTUQlvlj4CR19ylUbQVAinl0fEAQ==
   dependencies:
     d3-array "^1.2.4"
     d3-collection "^1.0.7"
@@ -3532,8 +3550,8 @@ d3plus-plot@^0.8.14:
     d3plus-axis "^0.4.16"
     d3plus-color "^0.6.6"
     d3plus-common "^0.6.55"
-    d3plus-shape "^0.16.10"
-    d3plus-viz "^0.12.37"
+    d3plus-shape "^0.16.11"
+    d3plus-viz "^0.12.38"
 
 d3plus-priestley@^0.3.4:
   version "0.3.4"
@@ -3561,10 +3579,10 @@ d3plus-react@^0.5.7:
     d3plus-priestley "^0.3.4"
     d3plus-viz "^0.12.35"
 
-d3plus-shape@^0.16.10:
-  version "0.16.10"
-  resolved "https://registry.yarnpkg.com/d3plus-shape/-/d3plus-shape-0.16.10.tgz#b2225fbd22980f80d1f05688795d8938cab51e2c"
-  integrity sha512-nCdNdplR2nKblXz94dvZ9oqjnBfJhfMPKaDkHSat3Y7SBGa5cY+/j3UpyD4wyDhMudfTXMyu36A8OoaHdwb4wg==
+d3plus-shape@^0.16.10, d3plus-shape@^0.16.11:
+  version "0.16.11"
+  resolved "https://registry.yarnpkg.com/d3plus-shape/-/d3plus-shape-0.16.11.tgz#39f9f6ad4e30dc365c895bc449eb6744484ac6e4"
+  integrity sha512-9QPQGXksbp6Iml0SgywSST9KdAZtub2eaifCF3DOXIRwt7gPjLUh3RJ/kpCCI5gGYHQsj+7LMjWZlzfgPBoxiA==
   dependencies:
     d3-array "^1.2.4"
     d3-collection "^1.0.7"
@@ -3599,18 +3617,18 @@ d3plus-timeline@^0.4.13:
     d3plus-common "^0.6.51"
 
 d3plus-tooltip@^0.3.10:
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/d3plus-tooltip/-/d3plus-tooltip-0.3.10.tgz#115fdb35d7213fb5767895ebb35532d4517cf393"
-  integrity sha512-aed8o+Pm1qXvfbPvz2q/+I4eiscFRIwHhr08CHini9C9FBxsWg4Fu4UIpindJXbQpkT+E7+CkZp9hcwR7hiHCA==
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/d3plus-tooltip/-/d3plus-tooltip-0.3.12.tgz#ec35a4e68271e28ed0b0ae3e0663233a76ab5d30"
+  integrity sha512-FWFlKvOUlpzYV1Y5+xHpKKtRkBpiG/2M5Ywqdo9XQ1d5X5P5fpxmtJcylqrBcgAiNNxE6xfgX+R2OjRaFpBvtA==
   dependencies:
     d3-selection "^1.4.0"
     d3plus-common "^0.6.51"
     popper.js "^1.15.0"
 
-d3plus-viz@^0.12.35, d3plus-viz@^0.12.36, d3plus-viz@^0.12.37:
-  version "0.12.37"
-  resolved "https://registry.yarnpkg.com/d3plus-viz/-/d3plus-viz-0.12.37.tgz#fbae3bde42cf1e95f51586760b5048c67db263d2"
-  integrity sha512-iXqYlKnyZ1xya4NsCBXEBOK7skPGiWVP4wKch1x2Wm5HIbnbLmv6DlHG4QHWw+2Io3NIhb2ymUcfADeP11yFdw==
+d3plus-viz@^0.12.35, d3plus-viz@^0.12.36, d3plus-viz@^0.12.38:
+  version "0.12.38"
+  resolved "https://registry.yarnpkg.com/d3plus-viz/-/d3plus-viz-0.12.38.tgz#32ae3832776bf417e42e7ef540e29f15f31586d3"
+  integrity sha512-aQ18Q1m2CCh7t4xAVMbBzA1llvriEIA0/uOYlDbzs+l7IPUz/sfTDubi512AJLPLIsf04ipyhAHO9Nag6N1sBw==
   dependencies:
     d3-array "^1.2.4"
     d3-brush "^1.0.6"
@@ -3632,26 +3650,6 @@ d3plus-viz@^0.12.35, d3plus-viz@^0.12.36, d3plus-viz@^0.12.37:
     d3plus-timeline "^0.4.13"
     d3plus-tooltip "^0.3.10"
     lrucache "^1.0.3"
-
-d3plus@^2.0.0-alpha.22:
-  version "2.0.0-alpha.22"
-  resolved "https://registry.yarnpkg.com/d3plus/-/d3plus-2.0.0-alpha.22.tgz#0b7c8a018aa5027ebe23ec2b0a1a6ded221431c4"
-  integrity sha512-fUwrQP07+tUnU1T1Ypq0c1CakD4mY6x4MvrOoVwDk7ynmhloGxGtv3QGwBBObegfztq1TquP8kbAi94eHFKKBQ==
-  dependencies:
-    d3plus-axis "^0.4.11"
-    d3plus-color "^0.6.6"
-    d3plus-common "^0.6.51"
-    d3plus-geomap "^0.6.4"
-    d3plus-hierarchy "^0.8.7"
-    d3plus-legend "^0.8.24"
-    d3plus-network "^0.5.8"
-    d3plus-plot "^0.8.14"
-    d3plus-priestley "^0.3.4"
-    d3plus-shape "^0.16.10"
-    d3plus-text "^0.9.45"
-    d3plus-timeline "^0.4.13"
-    d3plus-tooltip "^0.3.10"
-    d3plus-viz "^0.12.35"
 
 d@1:
   version "1.0.1"
