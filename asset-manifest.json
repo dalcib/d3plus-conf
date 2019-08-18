@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/d3plus-conf/static/css/main.54d96a03.chunk.css",
+    "main.js": "/d3plus-conf/static/js/main.39429ecb.chunk.js",
+    "main.js.map": "/d3plus-conf/static/js/main.39429ecb.chunk.js.map",
+    "runtime~main.js": "/d3plus-conf/static/js/runtime~main.fde48e10.js",
+    "runtime~main.js.map": "/d3plus-conf/static/js/runtime~main.fde48e10.js.map",
+    "static/js/2.95601a51.chunk.js": "/d3plus-conf/static/js/2.95601a51.chunk.js",
+    "static/js/2.95601a51.chunk.js.map": "/d3plus-conf/static/js/2.95601a51.chunk.js.map",
+    "index.html": "/d3plus-conf/index.html",
+    "precache-manifest.82c706a207f4ff836d82355d4fe81411.js": "/d3plus-conf/precache-manifest.82c706a207f4ff836d82355d4fe81411.js",
+    "service-worker.js": "/d3plus-conf/service-worker.js",
+    "static/css/main.54d96a03.chunk.css.map": "/d3plus-conf/static/css/main.54d96a03.chunk.css.map"
+  }
+}
