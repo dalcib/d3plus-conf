@@ -6,6 +6,7 @@
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.8.5",
     "d3plus-react": "^0.5.7",
+    "file-saver": "^2.0.2",
     "gh-pages": "^2.1.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -19,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer build/static/js/*"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +37,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.1",
+    "@types/gh-pages": "^2.0.0",
+    "source-map-explorer": "^2.0.1"
   }
 }

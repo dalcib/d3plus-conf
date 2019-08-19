@@ -1,4 +1,6 @@
-const hsDesc: { [key: string]: string } = require('./hsDesc.json')
+import hsDesc from './json/hsDesc.json'
+
+type hsDesc = { [key: string]: string }
 
 type trade = {
   yr: number
@@ -80,3 +82,11 @@ export function confData(data: any, agro: boolean = true) {
 
   return tradeAgri
 }
+
+//https://comtrade.un.org/api/get?max=50000&type=C&head=M&px=HS&freq=A&r=699&ps=2018%2C2017%2C2016%2C2015%2C2014&p=76&rg=1&cc=AG6&fmt=json
+
+//import { confData } from './confdata'
+//const comtrade = require('./json/comtrade.json')
+//const fs = require('fs')
+//const tradeAgri = confData({ data: comtrade })
+//fs.writeFileSync('tradeAgri.json', JSON.stringify(tradeAgri))
