@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/d3plus-conf/static/css/main.54d96a03.chunk.css",
-    "main.js": "/d3plus-conf/static/js/main.39429ecb.chunk.js",
-    "main.js.map": "/d3plus-conf/static/js/main.39429ecb.chunk.js.map",
+    "main.css": "/d3plus-conf/static/css/main.c83d5e71.chunk.css",
+    "main.js": "/d3plus-conf/static/js/main.8a7c247c.chunk.js",
+    "main.js.map": "/d3plus-conf/static/js/main.8a7c247c.chunk.js.map",
     "runtime~main.js": "/d3plus-conf/static/js/runtime~main.fde48e10.js",
     "runtime~main.js.map": "/d3plus-conf/static/js/runtime~main.fde48e10.js.map",
-    "static/js/2.95601a51.chunk.js": "/d3plus-conf/static/js/2.95601a51.chunk.js",
-    "static/js/2.95601a51.chunk.js.map": "/d3plus-conf/static/js/2.95601a51.chunk.js.map",
+    "static/js/2.5c60e2d5.chunk.js": "/d3plus-conf/static/js/2.5c60e2d5.chunk.js",
+    "static/js/2.5c60e2d5.chunk.js.map": "/d3plus-conf/static/js/2.5c60e2d5.chunk.js.map",
     "index.html": "/d3plus-conf/index.html",
-    "precache-manifest.82c706a207f4ff836d82355d4fe81411.js": "/d3plus-conf/precache-manifest.82c706a207f4ff836d82355d4fe81411.js",
+    "precache-manifest.434afe1aafe3d08962e12afbbfada114.js": "/d3plus-conf/precache-manifest.434afe1aafe3d08962e12afbbfada114.js",
     "service-worker.js": "/d3plus-conf/service-worker.js",
-    "static/css/main.54d96a03.chunk.css.map": "/d3plus-conf/static/css/main.54d96a03.chunk.css.map"
+    "static/css/main.c83d5e71.chunk.css.map": "/d3plus-conf/static/css/main.c83d5e71.chunk.css.map",
+    "static/media/toptal.gif": "/d3plus-conf/static/media/toptal.459e0ba8.gif"
   }
 }
