@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import React from 'react'
-import { Treemap, StackedArea } from 'd3plus-react'
 import { saveAs } from 'file-saver'
 import { confData } from './confdata'
+import TreeMap from './TreeMap'
+import StackedArea from './StackedArea'
+import Form from './Form'
 import countries from './json/partnerAreas.json'
 import logo from './toptal.gif'
 import './App.css'
@@ -18,12 +20,6 @@ const JSONtoCSV = (arr: any[], columns: string[] = Object.keys(arr[0]), delimite
     ),
   ].join('\n')
 
-const countriesList = countries.results.sort((a, b) => {
-  const at = a.text.toUpperCase()
-  const bt = b.text.toUpperCase()
-  return at < bt ? -1 : at > bt ? 1 : 0
-})
-
 function confUrl(countryId: string, aggLevel: number) {
   return !!parseInt(countryId, 10) || countryId === 'all'
     ? 'https://comtrade.un.org/api/get?max=50000&type=C&head=M&px=HS&fmt=json&' +
@@ -35,16 +31,16 @@ function confUrl(countryId: string, aggLevel: number) {
 }
 
 function App() {
-  const rviz = useRef(null)
-  const rstack = useRef(null)
+  //const rviz = useRef(null)
+  //const rstack = useRef(null)
   const colorConfig = useRef({})
 
   const [year, setYear] = useState<number | null>(null)
   const [aggLevel, setAggLevel] = useState<number>(4)
   const [agronegocio, setAgronegocio] = useState<boolean>(true)
   const [country, setCountry] = useState<string>('0')
-  const [url, setUrl] = useState(confUrl(country, aggLevel))
   const [subdiv, setSubdiv] = useState<boolean>(false)
+  const [url, setUrl] = useState(confUrl(country, aggLevel))
   const [data, setData] = useState<any[]>([])
   const [trade, setTrade] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
@@ -58,7 +54,6 @@ function App() {
           setTrade(null)
           const res = await fetch(url, { cache: 'no-cache' })
           const json = await res.json()
-          console.log('Fetch', json.dataset.length)
           setTrade(json)
           console.log('Fetch', json.dataset.length)
         }
@@ -79,13 +74,6 @@ function App() {
   useEffect(() => {
     setUrl(confUrl(country, aggLevel))
   }, [country, aggLevel])
-
-  useEffect(() => {
-    //;(window as any).viz = rviz
-    //;(window as any).stack = rstack
-    //@ts-ignore
-    console.log(year)
-  })
 
   useEffect(() => {
     colorConfig.current = subdiv ? { color: 'cmdDesc2' } : {}
@@ -118,83 +106,18 @@ function App() {
       </header>
       <br />
       <br />
-      <div className="App-subheader">
-        <div className="box">
-          País Importador :
-          <select
-            value={country}
-            onChange={(e: React.FormEvent<HTMLSelectElement>) => setCountry(e.currentTarget.value)}
-          >
-            {countriesList.map(item => (
-              <option value={item.id} key={item.id}>
-                {item.text}
-              </option>
-            ))}
-          </select>
-          <br />
-        </div>
-        <div className="box">
-          Nível de Agregação:
-          <label>
-            <input
-              type="radio"
-              value="4"
-              name="aggLevel"
-              checked={aggLevel === 4}
-              onChange={() => setAggLevel(4)}
-            />
-            HS4
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="6"
-              name="aggLevel"
-              checked={aggLevel === 6}
-              onChange={() => setAggLevel(6)}
-            />
-            HS6
-          </label>
-          <br />
-        </div>
-        <div className="box">
-          Produtos:
-          <label>
-            <input
-              type="radio"
-              value="sps"
-              name="agronegocio"
-              checked={agronegocio === false}
-              onChange={() => setAgronegocio(false)}
-            />
-            Acordo SPS
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="agronegocio"
-              name="agronegocio"
-              checked={agronegocio === true}
-              onChange={() => setAgronegocio(true)}
-            />
-            Agronegócio
-          </label>
-          <br />
-        </div>
-        <div className="box">
-          <label>
-            <input
-              type="checkbox"
-              value="4"
-              name="subdiv"
-              checked={subdiv === true}
-              onChange={() => setSubdiv(!subdiv)}
-            />
-            Mostrar subdivisões
-          </label>
-        </div>
-        <br />
-      </div>
+      <Form
+        {...{
+          aggLevel,
+          setAggLevel,
+          agronegocio,
+          setAgronegocio,
+          country,
+          setCountry,
+          subdiv,
+          setSubdiv,
+        }}
+      />
       {data && data.length ? (
         <div>
           <span>Dados carregados, com {data.length} linhas.</span>
@@ -217,83 +140,16 @@ function App() {
         ) : null}
         {data.length !== 0 && !loading ? (
           <div>
-            <Treemap
-              config={{
-                groupBy: ['cmdDesc2', 'cmdDesc4', 'cmdDesc6'],
-                sum: 'value',
-                time: 'yr',
-                downloadButton: true,
-                downloadConfig: { type: 'jpg' },
-                legend: false,
-                total: (d: any) => d.value,
-                totalConfig: {
-                  text: (d: any) => d.text,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  padding: 5,
-                },
-                height: 600,
-                data: data,
-                depth: subdiv ? 1 : 0,
-                title:
-                  'Exports from Brazil to ' +
-                  countries.results.find(item => item.id === country)!.text,
-                titleConfig: { fontSize: 20, fontWeight: 600 },
-                timelineConfig: {
-                  on: {
-                    end: (d: Date[] | Date) => {
-                      if (d !== undefined) {
-                        const time = Array.isArray(d)
-                          ? d.map(item => item.getFullYear())
-                          : [d.getFullYear()]
-                        setYear(time[0])
-                      }
-                      return true
-                    },
-                  },
-                },
-                ...colorConfig.current,
-              }}
-              ref={rviz}
-            />
+            <TreeMap {...{ data, subdiv, setYear, country }} />
             <br />
             <br />
-            <StackedArea
-              config={{
-                data: data,
-                groupBy: ['cmdDesc2', 'cmdDesc4', 'cmdDesc6'],
-                y: 'value',
-                x: 'yr',
-                legend: false,
-                depth: 0,
-                downloadButton: true,
-                downloadPosition: 'top',
-                xConfig: {
-                  shapeConfig: {
-                    labelConfig: {
-                      fontSize: () => 20,
-                    },
-                  },
-                },
-                shapeConfig: { fontSize: 20 },
-                labelConfig: { fontSize: 20 },
-                height: 600,
-                title:
-                  'Exports from Brazil to ' +
-                  countries.results.find(item => item.id === country)!.text,
-                titleConfig: { fontSize: 20, fontWeight: 600 },
-              }}
-              ref={rstack}
-            />
+            <StackedArea {...{ data, country }} />
           </div>
         ) : null}
       </div>
-
       <br />
       <br />
-      <br />
-      <hr />
-      <br />
+      <br /> <hr /> <br />
       <div className="App-subheader">
         <h3>Códigos HS do Acordo SPS Agricultura</h3>
         <p>
@@ -324,3 +180,9 @@ function App() {
 }
 
 export default App
+
+/* useEffect(() => {
+   ;(window as any).viz = rviz
+   ;(window as any).stack = rstack
+   console.log(year)
+ }) */
