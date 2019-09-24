@@ -1,5 +1,6 @@
 import React from 'react'
 import countries from './json/partnerAreas.json'
+//import {State, set} from './useStore'
 
 const countriesList = countries.results.sort((a, b) => {
   const at = a.text.toUpperCase()
@@ -8,33 +9,32 @@ const countriesList = countries.results.sort((a, b) => {
 })
 
 type Props = {
-  aggLevel: number
-  setAggLevel: (level: number) => void
-  agronegocio: boolean
-  setAgronegocio: (level: boolean) => void
-  country: string
-  setCountry: (level: string) => void
-  subdiv: boolean
-  setSubdiv: (level: boolean) => void
+  aggLevel?: number
+  setAggLevel?: (level: number) => void
+  agronegocio?: boolean
+  setAgronegocio?: (level: boolean) => void
+  country?: string
+  setCountry?: (level: string) => void
+  subdiv?: boolean
+  setSubdiv?: (level: boolean) => void
+  state: State
+  set: SetState
 }
 
-const Form: React.FunctionComponent<Props> = ({
-  aggLevel,
-  setAggLevel,
-  agronegocio,
-  setAgronegocio,
-  country,
-  setCountry,
-  subdiv,
-  setSubdiv,
-}) => {
+const Form: React.FunctionComponent<Props> = ({ state, set }) => {
   return (
     <div className="App-subheader">
       <div className="box">
         País Importador :
         <select
-          value={country}
-          onChange={(e: React.FormEvent<HTMLSelectElement>) => setCountry(e.currentTarget.value)}
+          value={state.country}
+          onChange={(e: React.FormEvent<HTMLSelectElement>) => {
+            const value: string = e.currentTarget.value
+            set(s => {
+              s.country = value
+            })
+            e.persist()
+          }}
         >
           {countriesList.map(item => (
             <option value={item.id} key={item.id}>
@@ -51,8 +51,12 @@ const Form: React.FunctionComponent<Props> = ({
             type="radio"
             value="4"
             name="aggLevel"
-            checked={aggLevel === 4}
-            onChange={() => setAggLevel(4)}
+            checked={state.aggLevel === 4}
+            onChange={() =>
+              set(s => {
+                s.aggLevel = 4
+              })
+            }
           />
           HS4
         </label>
@@ -61,8 +65,12 @@ const Form: React.FunctionComponent<Props> = ({
             type="radio"
             value="6"
             name="aggLevel"
-            checked={aggLevel === 6}
-            onChange={() => setAggLevel(6)}
+            checked={state.aggLevel === 6}
+            onChange={() =>
+              set(s => {
+                s.aggLevel = 6
+              })
+            }
           />
           HS6
         </label>
@@ -75,8 +83,12 @@ const Form: React.FunctionComponent<Props> = ({
             type="radio"
             value="sps"
             name="agronegocio"
-            checked={agronegocio === false}
-            onChange={() => setAgronegocio(false)}
+            checked={state.agronegocio === false}
+            onChange={() =>
+              set(s => {
+                s.agronegocio = false
+              })
+            }
           />
           Acordo SPS
         </label>
@@ -85,8 +97,12 @@ const Form: React.FunctionComponent<Props> = ({
             type="radio"
             value="agronegocio"
             name="agronegocio"
-            checked={agronegocio === true}
-            onChange={() => setAgronegocio(true)}
+            checked={state.agronegocio === true}
+            onChange={() =>
+              set(s => {
+                s.agronegocio = true
+              })
+            }
           />
           Agronegócio
         </label>
@@ -98,8 +114,12 @@ const Form: React.FunctionComponent<Props> = ({
             type="checkbox"
             value="4"
             name="subdiv"
-            checked={subdiv === true}
-            onChange={() => setSubdiv(!subdiv)}
+            checked={state.subdiv === true}
+            onChange={() =>
+              set(s => {
+                s.subdiv = !s.subdiv
+              })
+            }
           />
           Mostrar subdivisões
         </label>

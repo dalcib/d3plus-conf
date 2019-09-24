@@ -2,13 +2,14 @@ import React from 'react'
 import { StackedArea as D3StackedArea } from 'd3plus-react'
 import countries from './json/partnerAreas.json'
 
-const StackedArea: React.FunctionComponent<{ data: any; country: string }> = ({
+const StackedArea: React.FunctionComponent<{ data?: any; country?: string, state: any }> = ({
   data,
   country,
+  state
 }) => (
   <D3StackedArea
     config={{
-      data: data,
+      data: state.data,
       groupBy: ['cmdDesc2', 'cmdDesc4', 'cmdDesc6'],
       y: 'value',
       x: 'yr',
@@ -26,7 +27,7 @@ const StackedArea: React.FunctionComponent<{ data: any; country: string }> = ({
       shapeConfig: { fontSize: 20 },
       labelConfig: { fontSize: 20 },
       height: 600,
-      title: 'Exports from Brazil to ' + countries.results.find(item => item.id === country)!.text,
+      title: 'Exports from Brazil to ' + countries.results.find(item => item.id === state.country)!.text,
       titleConfig: { fontSize: 20, fontWeight: 600 },
     }}
     //ref={rstack}
@@ -34,3 +35,11 @@ const StackedArea: React.FunctionComponent<{ data: any; country: string }> = ({
 )
 
 export default StackedArea
+
+//const rviz = useRef(null)
+//const rstack = useRef(null)
+/* useEffect(() => {
+   ;(window as any).viz = rviz
+   ;(window as any).stack = rstack
+   console.log(year)
+ }) */

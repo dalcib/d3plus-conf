@@ -3,11 +3,13 @@ import { Treemap } from 'd3plus-react'
 import countries from './json/partnerAreas.json'
 
 const TreeMap: React.FunctionComponent<{
-  data: any[]
-  subdiv: boolean
-  setYear: any
-  country: string
-}> = ({ data, subdiv, setYear, country }) => {
+  data?: any[]
+  subdiv?: boolean
+  setYear?: any
+  country?: string
+  state: State
+  set: SetState
+}> = ({ data, subdiv, setYear, country, state, set }) => {
   const colorConfig = useRef({})
 
   useEffect(() => {
@@ -31,10 +33,11 @@ const TreeMap: React.FunctionComponent<{
           padding: 5,
         },
         height: 600,
-        data: data,
-        depth: subdiv ? 1 : 0,
+        data: state.data,
+        depth: state.subdiv ? 1 : 0,
         title:
-          'Exports from Brazil to ' + countries.results.find(item => item.id === country)!.text,
+          'Exports from Brazil to ' +
+          countries.results.find(item => item.id === state.country)!.text,
         titleConfig: { fontSize: 20, fontWeight: 600 },
         timelineConfig: {
           on: {
@@ -43,7 +46,9 @@ const TreeMap: React.FunctionComponent<{
                 const time = Array.isArray(d)
                   ? d.map(item => item.getFullYear())
                   : [d.getFullYear()]
-                setYear(time[0])
+                set(s => {
+                  s.year = time[0]
+                })
               }
               return true
             },

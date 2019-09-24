@@ -1,92 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import React from 'react'
-import { saveAs } from 'file-saver'
-import { confData } from './confdata'
+import useStore from './useStore'
 import TreeMap from './TreeMap'
 import StackedArea from './StackedArea'
 import Form from './Form'
-import countries from './json/partnerAreas.json'
+import { saveCSV } from './saveCSV'
 import logo from './toptal.gif'
 import './App.css'
 
-const JSONtoCSV = (arr: any[], columns: string[] = Object.keys(arr[0]), delimiter = ',') =>
-  [
-    columns.join(delimiter),
-    ...arr.map(obj =>
-      columns.reduce(
-        (acc, key) => `${acc}${!acc.length ? '' : delimiter}"${!obj[key] ? '' : obj[key]}"`,
-        ''
-      )
-    ),
-  ].join('\n')
-
-function confUrl(countryId: string, aggLevel: number) {
-  return !!parseInt(countryId, 10) || countryId === 'all'
-    ? 'https://comtrade.un.org/api/get?max=50000&type=C&head=M&px=HS&fmt=json&' +
-        'freq=A&ps=2018%2C2017%2C2016%2C2015%2C2014&p=76&rg=1&cc=AG' +
-        aggLevel +
-        '&r=' +
-        countryId
-    : null
-}
-
 function App() {
-  //const rviz = useRef(null)
-  //const rstack = useRef(null)
   const colorConfig = useRef({})
-
-  const [year, setYear] = useState<number | null>(null)
-  const [aggLevel, setAggLevel] = useState<number>(4)
-  const [agronegocio, setAgronegocio] = useState<boolean>(true)
-  const [country, setCountry] = useState<string>('0')
-  const [subdiv, setSubdiv] = useState<boolean>(false)
-  const [url, setUrl] = useState(confUrl(country, aggLevel))
-  const [data, setData] = useState<any[]>([])
-  const [trade, setTrade] = useState<any | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function fetchUrl() {
-      try {
-        if (url) {
-          setLoading(true)
-          setData([])
-          setTrade(null)
-          const res = await fetch(url, { cache: 'no-cache' })
-          const json = await res.json()
-          setTrade(json)
-          console.log('Fetch', json.dataset.length)
-        }
-      } catch (e) {
-        console.log(e)
-      }
-      setLoading(false)
-    }
-    fetchUrl()
-  }, [url, aggLevel])
-
-  useEffect(() => {
-    if (trade && trade.dataset.length) {
-      setData(confData(trade, agronegocio))
-    }
-  }, [trade, agronegocio])
-
-  useEffect(() => {
-    setUrl(confUrl(country, aggLevel))
-  }, [country, aggLevel])
-
-  useEffect(() => {
-    colorConfig.current = subdiv ? { color: 'cmdDesc2' } : {}
-  }, [subdiv])
-
-  const saveCSV = () => {
-    const CSV = JSONtoCSV(data)
-    var blob = new Blob([CSV], { type: 'text/plain;charset=utf-8' })
-    saveAs(
-      blob,
-      'comtrade-brazil-' + countries.results.find(item => item.id === country)!.text + '.csv'
-    )
-  }
+  const { state, set } = useStore(colorConfig)
 
   return (
     <div className="App">
@@ -106,44 +30,35 @@ function App() {
       </header>
       <br />
       <br />
-      <Form
-        {...{
-          aggLevel,
-          setAggLevel,
-          agronegocio,
-          setAgronegocio,
-          country,
-          setCountry,
-          subdiv,
-          setSubdiv,
-        }}
-      />
-      {data && data.length ? (
+      <Form {...{ set, state }} />
+      {state.data && state.data.length ? (
         <div>
-          <span>Dados carregados, com {data.length} linhas.</span>
-          <button onClick={() => saveCSV()}>Fazer download dos dados</button>
+          <span>Dados carregados, com {state.data.length} linhas.</span>
+          <button onClick={() => saveCSV(state.data, state.country)}>
+            Fazer download dos dados
+          </button>
         </div>
       ) : null}
       <hr />
       <div>
         <br />
-        {data.length === 0 && !loading ? (
+        {state.data.length === 0 && !state.loading ? (
           <span>
             <h1>=> Selecione um país </h1>
           </span>
         ) : null}
-        {data.length === 0 && loading ? (
+        {state.data.length === 0 && state.loading ? (
           <span>
             <h1>Aguarde! Carregando</h1>
             <img src={logo} className="App-logo" alt="logo" />
           </span>
         ) : null}
-        {data.length !== 0 && !loading ? (
+        {state.data.length !== 0 && !state.loading ? (
           <div>
-            <TreeMap {...{ data, subdiv, setYear, country }} />
+            <TreeMap {...{ set, state }} />
             <br />
             <br />
-            <StackedArea {...{ data, country }} />
+            <StackedArea {...{ set, state }} />
           </div>
         ) : null}
       </div>
@@ -180,9 +95,3 @@ function App() {
 }
 
 export default App
-
-/* useEffect(() => {
-   ;(window as any).viz = rviz
-   ;(window as any).stack = rstack
-   console.log(year)
- }) */

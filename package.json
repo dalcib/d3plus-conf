@@ -8,10 +8,12 @@
     "d3plus-react": "^0.5.7",
     "file-saver": "^2.0.2",
     "gh-pages": "^2.1.1",
+    "immer": "^4.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "use-immer": "^0.3.4"
   },
   "homepage": "https://dalcib.github.io/d3plus-conf",
   "scripts": {
