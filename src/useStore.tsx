@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect /* , useMemo  */ } from 'react'
 import { useImmer } from 'use-immer'
 import { confData } from './confdata'
 
@@ -23,6 +23,9 @@ const useStore = (colorConfig: any) => {
     data: [],
     trade: null,
     loading: true,
+    /* get turl() {
+      return confUrl('', 4)
+    }, */
   }
 
   const [state, set] = useImmer<State>(initialState)
@@ -41,7 +44,7 @@ const useStore = (colorConfig: any) => {
           set(s => {
             s.trade = json
           })
-          console.log('Fetch', json.dataset.length)
+          console.log('Fetch', json.dataset.length, state.url)
         }
       } catch (e) {
         console.log(e)

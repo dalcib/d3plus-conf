@@ -10,6 +10,7 @@ type State = {
   data: any[]
   trade: any[] | null
   loading: boolean
+  //readonly turl: any
 }
 
 type SetState = (f: (draft: State) => void | State) => void
