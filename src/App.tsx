@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import React from 'react'
 import useStore from './useStore'
+//import useStore from './useImmox'
 import TreeMap from './TreeMap'
 import StackedArea from './StackedArea'
 import Form from './Form'
@@ -42,12 +43,16 @@ function App() {
       <hr />
       <div>
         <br />
-        {state.data.length === 0 && !state.loading ? (
+        <span>
+          {state.country} - {state.trade && state.trade.length} - {state.data.length} -{' '}
+          {state.loading.toString()}
+        </span>
+        {state.country === '0' /* !state.trade && !state.loading */ ? (
           <span>
             <h1>=> Selecione um país </h1>
           </span>
         ) : null}
-        {state.data.length === 0 && state.loading ? (
+        {/* state.country && */ state.loading ? (
           <span>
             <h1>Aguarde! Carregando</h1>
             <img src={logo} className="App-logo" alt="logo" />
