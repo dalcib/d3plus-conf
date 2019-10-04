@@ -1,25 +1,22 @@
 import React, { useEffect, useRef } from 'react'
 import { Treemap } from 'd3plus-react'
-import countries from './json/partnerAreas.json'
 
 const TreeMap: React.FunctionComponent<{
-  data?: any[]
-  subdiv?: boolean
-  setYear?: any
-  country?: string
-  state: State
-  set: SetState
-}> = ({ data, subdiv, setYear, country, state, set }) => {
+  data: any[]
+  subdiv: boolean
+  groupBy: string[]
+  title: string
+}> = ({ data, subdiv, groupBy, title }) => {
   const colorConfig = useRef({})
 
   useEffect(() => {
-    colorConfig.current = subdiv ? { color: 'cmdDesc2' } : {}
-  }, [subdiv])
+    colorConfig.current = subdiv ? { color: groupBy[0] } : {}
+  }, [subdiv, groupBy])
 
   return (
     <Treemap
       config={{
-        groupBy: ['cmdDesc2', 'cmdDesc4', 'cmdDesc6'],
+        groupBy: groupBy,
         sum: 'value',
         time: 'yr',
         downloadButton: true,
@@ -33,13 +30,11 @@ const TreeMap: React.FunctionComponent<{
           padding: 5,
         },
         height: 600,
-        data: state.data,
-        depth: state.subdiv ? 1 : 0,
-        title:
-          'Exports from Brazil to ' +
-          countries.results.find(item => item.id === state.country)!.text,
+        data: data,
+        depth: subdiv ? 1 : 0,
+        title: title,
         titleConfig: { fontSize: 20, fontWeight: 600 },
-        timelineConfig: {
+        /* timelineConfig: {
           on: {
             end: (d: Date[] | Date) => {
               if (d !== undefined) {
@@ -53,7 +48,7 @@ const TreeMap: React.FunctionComponent<{
               return true
             },
           },
-        },
+        }, */
         ...colorConfig.current,
       }}
       /* ref={rviz} */

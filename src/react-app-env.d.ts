@@ -1,7 +1,9 @@
 /// <reference types="react-scripts" />
 
-type State = {
-  year: number
+//interface State extends import('./useStore').State {}
+
+//type State = typeof State
+/*[]  year: number
   aggLevel: number
   agronegocio: boolean
   country: string
@@ -11,6 +13,6 @@ type State = {
   trade: any[] | null
   loading: boolean
   //readonly turl: any
-}
+}*/
 
-type SetState = (f: (draft: State) => void | State) => void
+//type SetState = (f: (draft: State) => void | State) => void

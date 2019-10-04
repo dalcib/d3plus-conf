@@ -19,6 +19,9 @@ type trade = {
 }
 
 export function confData(data: any, agro: boolean = true) {
+  if (!data.dataset.length) {
+    return []
+  }
   const aggrLevel = data.dataset[0].aggrLevel
 
   var trade: trade[] = data.dataset

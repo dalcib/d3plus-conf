@@ -1,6 +1,6 @@
-import { useEffect /* , useMemo  */ } from 'react'
-//import { useImmer } from 'use-immer'
-import { useImmox } from 'immox'
+import { useEffect /* , useMemo  */, createContext } from 'react'
+import { produce, immerable } from 'immer'
+import { useImmer } from 'use-immer'
 import { confData } from './confdata'
 
 function confUrl(countryId: string, aggLevel: number): string | null {
@@ -13,27 +13,35 @@ function confUrl(countryId: string, aggLevel: number): string | null {
     : null
 }
 
-const useStore = (colorConfig: any) => {
-  const initialState: State = {
-    year: 2018,
-    aggLevel: 4,
-    agronegocio: true,
-    country: '0',
-    subdiv: false,
-    trade: null,
-    loading: false,
-    get url() {
-      return confUrl(this.country, this.aggLevel) || null
-    },
-    get data() {
-      return this.trade ? confData(this.trade, this.agronegocio) : []
-    },
-    /* get turl() {
-      return confUrl('', 4)
-    }, */
+export class State {
+  [immerable] = true
+  year = 2018
+  aggLevel = 4
+  agronegocio = true
+  country = '0'
+  subdiv = false
+  trade = null
+  loading = false
+  get url() {
+    return confUrl(this.country, this.aggLevel) || null
   }
+  get data() {
+    return this.trade ? confData(this.trade, this.agronegocio) : []
+  }
+  subdivToggle() {
+    this.subdiv = !this.subdiv
+  }
+  increment() {
+    return produce(this, d => {
+      d.aggLevel += 2
+    })
+  }
+}
 
-  const [state, set] = useImmox<State>(initialState)
+const initialState = new State()
+
+const useStore = (colorConfig: any) => {
+  const [state, set] = useImmer<State>(initialState)
 
   useEffect(() => {
     async function fetchUrl() {
@@ -91,3 +99,8 @@ const useStore = (colorConfig: any) => {
 }
 
 export default useStore
+
+export const Context = createContext({} as {
+  state: State
+  set: (f: (draft: State) => void | State) => void
+})

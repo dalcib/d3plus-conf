@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import countries from './json/partnerAreas.json'
-//import {State, set} from './useStore'
+import { Context } from './useStore'
 
 const countriesList = countries.results.sort((a, b) => {
   const at = a.text.toUpperCase()
@@ -17,11 +17,12 @@ type Props = {
   setCountry?: (level: string) => void
   subdiv?: boolean
   setSubdiv?: (level: boolean) => void
-  state: State
-  set: SetState
+  /*   state: State
+  set: SetState */
 }
 
-const Form: React.FunctionComponent<Props> = ({ state, set }) => {
+const Form: React.FunctionComponent<Props> = () => {
+  const { state, set } = useContext(Context)
   return (
     <div className="App-subheader">
       <div className="box">
@@ -115,11 +116,13 @@ const Form: React.FunctionComponent<Props> = ({ state, set }) => {
             value="4"
             name="subdiv"
             checked={state.subdiv === true}
-            onChange={() =>
+            onChange={() => {
               set(s => {
-                s.subdiv = !s.subdiv
+                //s.subdiv = !s.subdiv
+                s.subdivToggle()
+                //state.increment()
               })
-            }
+            }}
           />
           Mostrar subdivisões
         </label>
