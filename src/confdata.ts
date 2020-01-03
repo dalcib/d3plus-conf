@@ -1,4 +1,5 @@
 import hsDesc from './json/hsDesc.json'
+import hsAgro from './json/agrostat6agro.json'
 
 type hsDesc = { [key: string]: string }
 
@@ -72,7 +73,8 @@ export function confData(data: any, agro: boolean = true) {
         sps4.includes(item.cmdCode4) ||
         sps6.includes(item.cmdCode6) ||
         (agro2.includes(item.cmdCode2) && agro) ||
-        (agro4.includes(item.cmdCode4) && agro)
+        (agro4.includes(item.cmdCode4) && agro) ||
+        (hsAgro.includes(item.cmdCode6) && agro)
     )
     .map(({ cmdCode2, cmdCode4, cmdCode6, ...rest }) => ({ ...rest }))
     .map(({ cmdDesc6, ...rest }) => {
