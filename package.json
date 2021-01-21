@@ -8,7 +8,7 @@
     "d3plus-react": "^0.5.7",
     "file-saver": "^2.0.2",
     "gh-pages": "^2.1.1",
-    "immer": "^4.0.0",
+    "immer": "^8.0.1",
     "immox": "^0.1.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
